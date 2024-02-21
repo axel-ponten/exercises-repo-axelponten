@@ -56,18 +56,25 @@ i = np.tile(i, (math.ceil(N/2), math.ceil(M/2)))[:N,:M] # slice in case of odd N
 print(i)
 
 # j)
+def id(x: np.ndarray):
+    return x.__array_interface__['data'][0]
+print("j first method")
 def negate_range(arr: np.ndarray, range_cut: tuple) -> np.ndarray:
     return np.where((range_cut[0] < arr) & (arr < range_cut[1]), -arr, arr)
 j = np.arange(11)
+jid = id(j)
 print(j)
 j = negate_range(j, (3,8))
 print(j)
+print("in place:", id(j) == jid)
 
-# maybe better way is this
+print("j second method")
 j = np.arange(11)
+jid = id(j)
 minval, maxval = 3, 8
 j[(minval < j) & (j < maxval)] *= -1
 print(j)
+print("in place:", id(j) == jid)
 
 # k)
 k = np.random.random(10)
@@ -88,12 +95,31 @@ for i in range(128):
     print(equal)
 
 # m)
+# print("m first method")
+# m = np.arange(10, dtype=np.int32)
+# print(m.dtype)
+# mid = id(m)
+# m = m.astype(np.float32, copy = False)
+# print(m.dtype)
+# print("in place:", mid == id(m))
+
+# print("m second method")
+# m = np.arange(10, dtype=np.int32)
+# print(m.dtype)
+# mid = id(m)
+# m = np.array(m, dtype=np.float32)
+# print(m, m.dtype)
+# print("in place", mid == id(m))
+
+# this is the only one in place
+print("m third method")
 m = np.arange(10, dtype=np.int32)
-print(m)
-# which one?
-m = m.astype(np.float32, copy = False)
-#m = np.array(m, dtype=np.float32)
-print(m)
+print(m.dtype)
+mid = id(m)
+m2 = m.view("float32")
+m2[:] = m
+print(m2, m2.dtype)
+print("in place", mid == id(m2))
 
 # n)
 n1 = np.arange(9).reshape(3,3)
