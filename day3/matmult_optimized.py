@@ -1,3 +1,4 @@
+#!/home/axel/miniconda3/envs/icetray-env/bin/python
 # Program to multiply two matrices using nested loops
 import random
 import numpy as np
@@ -11,8 +12,8 @@ def matrix_mult2(X, Y):
     return X @ Y
 
 def main():
-    X2 = generate_matrix2(N, N)
-    Y2 = generate_matrix2(N, N+1)
+    X = generate_matrix2(N, N)
+    Y = generate_matrix2(N, N+1)
     result = matrix_mult2(X, Y) # neglible difference to original
 
 if __name__ == "main":
