@@ -1,8 +1,22 @@
-"""
-A collection of simple math operations
-"""
+""" A collection of simple math operations.
 
+Functions to compute basic arithmetic, and polynomials up to order 2.
+"""
 def simple_add(a,b):
+    """ Add two numbers.
+
+    Parameters
+    ----------
+    a : int, float
+        First term.
+    b : int, float
+        Second term
+    
+    Returns
+    -------
+    int, float
+        The sum of a and b.
+    """
     return a+b
 
 def simple_sub(a,b):
